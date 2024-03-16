@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "editor.h"
 #include "interface.h"
 #include "key.h"
@@ -14,6 +12,8 @@ int main() {
         if (!key.is(KeyType::NONE)) {
             editor.send_key(key);
         }
+
+        editor.refresh();
 
         if (editor.quit()) {
             break;
