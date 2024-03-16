@@ -12,6 +12,7 @@ public:
     virtual void reset_cursor() = 0;
     virtual void move_cursor(unsigned int x, unsigned int y) = 0;
     virtual void get_size(unsigned int &x, unsigned int &y) = 0;
+    virtual void print(unsigned int x, unsigned int y, char c) = 0;
 };
 
 class TerminalInterface : public Interface {
@@ -23,6 +24,7 @@ public:
     void reset_cursor() override;
     void move_cursor(unsigned int x, unsigned int y) override;
     void get_size(unsigned int &x, unsigned int &y) override;
+    void print(unsigned int x, unsigned int y, char c) override;
 
 private:
     struct termios initial_state;

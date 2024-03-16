@@ -1,4 +1,5 @@
 #include <string>
+#include <sys/ioctl.h>
 #include <termios.h>
 #include <unistd.h>
 
@@ -13,6 +14,7 @@ TerminalInterface::TerminalInterface() {
 
 TerminalInterface::~TerminalInterface() {
     this->restore_mode();
+    this->clear_screen();
     this->reset_cursor();
 }
 
@@ -118,6 +120,14 @@ void TerminalInterface::move_cursor(unsigned int x, unsigned int y) {
 }
 
 void TerminalInterface::get_size(unsigned int &x, unsigned int &y) {
-    x = 80;
-    y = 25;
+    struct winsize winsize;
+
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &winsize);
+    x = winsize.ws_col;
+    y = winsize.ws_row;
+}
+
+void TerminalInterface::print(unsigned int x, unsigned int y, char c) {
+    this->move_cursor(x, y);
+    write(STDOUT_FILENO, &c, 1);
 }
