@@ -6,9 +6,6 @@
 #include "key.h"
 
 class Interface {
-protected:
-    virtual KeyType to_type(int key) = 0;
-
 public:
     virtual void move_cursor(unsigned int x, unsigned int y) = 0;
     virtual void get_size(unsigned int &x, unsigned int &y) = 0;
