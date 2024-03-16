@@ -4,10 +4,6 @@ Editor::Editor(Interface &interface, Cursor &cursor)
     : interface{interface}, quit_editor{false}, cursor{cursor} {
 }
 
-bool Editor::quit() {
-    return this->quit_editor;
-}
-
 void Editor::send_key(Key key) {
     if (key.is(KeyType::ESC)) {
         this->quit_editor = true;
@@ -31,4 +27,21 @@ void Editor::send_key(Key key) {
     };
 
     interface.move_cursor(cursor.get_x(), cursor.get_y());
+}
+
+void Editor::refresh() {
+    interface.clear_screen();
+
+    unsigned int x, y;
+    interface.get_size(x, y);
+
+    for (unsigned int i = 0; i < y; ++i) {
+        interface.print(i, 0, '~');
+    }
+
+    interface.move_cursor(cursor.get_x(), cursor.get_y());
+}
+
+bool Editor::quit() {
+    return this->quit_editor;
 }

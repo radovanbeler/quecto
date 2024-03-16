@@ -9,6 +9,7 @@ class Editor {
 public:
     Editor(Interface &interface, Cursor &cursor);
     void send_key(Key key);
+    void refresh();
     bool quit();
 
 private:
