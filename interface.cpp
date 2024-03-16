@@ -1,4 +1,3 @@
-#include <cstdlib>
 #include <string>
 #include <termios.h>
 #include <unistd.h>
@@ -30,7 +29,7 @@ void TerminalInterface::set_raw_mode() {
     current_state.c_cflag &= ~(CSIZE | PARENB);
     current_state.c_cflag |= CS8;
     current_state.c_cc[VMIN] = 0;
-    current_state.c_cc[VTIME] = 0.5;
+    current_state.c_cc[VTIME] = 1;
 
     tcsetattr(STDIN_FILENO, TCSAFLUSH, &current_state);
 }
